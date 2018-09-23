@@ -1,9 +1,16 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+var path = require('path');
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./src/index.html",
-  filename: "./index.html"
+  filename: "index.html"
 });
+
 module.exports = {
+  entry:"./src/js/client.js",
+  output:{
+    path:path.join(__dirname,'src','dist'),
+    filename:"index.js"
+  },
   module: {
     rules: [
       {
@@ -15,5 +22,11 @@ module.exports = {
       }
     ]
   },
-  plugins: [htmlPlugin]
+  plugins: [htmlPlugin],
+  devServer: {
+    contentBase: path.join(__dirname,'src','dist'),
+    compress: true,
+    port: 3000
+  }
+
 };
